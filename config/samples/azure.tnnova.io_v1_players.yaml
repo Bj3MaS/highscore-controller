@@ -4,9 +4,9 @@ metadata:
   labels:
     app.kubernetes.io/name: dx-olympics-highscore-controller
     app.kubernetes.io/managed-by: kustomize
-  name: player-marcus
+  name: marcusauberg
 spec:
-  name: Marcus Auberg
+  name: marcusauberg
   points: 100
 
 ---
@@ -17,9 +17,9 @@ metadata:
   labels:
     app.kubernetes.io/name: dx-olympics-highscore-controller
     app.kubernetes.io/managed-by: kustomize
-  name: player-nikolai
+  name: nikolaifauskrud
 spec:
-  name: Nikolai Fauskrud
+  name: nikolaifauskrud
   points: 100
 
 ---
@@ -30,8 +30,8 @@ metadata:
   labels:
     app.kubernetes.io/name: dx-olympics-highscore-controller
     app.kubernetes.io/managed-by: kustomize
-  name: player-aksel
+  name: akselskaar
 spec:
-  name: aksel skaar
+  name: akselskaar
   points: 100
 
