@@ -105,7 +105,6 @@ func main() {
 		BindAddress:   metricsAddr,
 		SecureServing: secureMetrics,
 		TLSOpts:       tlsOpts,
-		
 	}
 
 	if secureMetrics {

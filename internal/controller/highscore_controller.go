@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"slices"
+	"strings"
 
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
@@ -129,35 +130,6 @@ func (r *HighscoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		return ctrl.Result{}, nil
 	}
 
-	// var highscore azuretnnovaiov1.Highscore
-
-	// if err := r.Get(ctx, client.ObjectKey{Name: "dx-olympics"}, &highscore); err != nil {
-	// 	if client.IgnoreNotFound(err) != nil {
-	// 		log.Error(err, "unable to fetch Highscore")
-	// 		return ctrl.Result{}, err
-	// 	}
-
-	// 	highscore = azuretnnovaiov1.Highscore{
-	// 		ObjectMeta: metav1.ObjectMeta{
-	// 			Name:      "dx-olympics",
-	// 			Namespace: req.Namespace,
-	// 		},
-	// 		Spec: azuretnnovaiov1.HighscoreSpec{
-	// 			Scoreboard: []azuretnnovaiov1.Score{
-	// 				{
-	// 					Name:   player.Spec.Name,
-	// 					Points: player.Spec.Points,
-	// 				},
-	// 			},
-	// 		},
-	// 	}
-
-	// 	if err := r.Create(ctx, &highscore); err != nil {
-	// 		log.Error(err, "unable to create Highscore")
-	// 		return ctrl.Result{}, err
-	// 	}
-	// }
-
 	if containsName(highscore, player.Spec.Name) {
 		log.Info("Updating player")
 
@@ -183,7 +155,11 @@ func (r *HighscoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		log.Error(err, "unable to update Highscore")
 	}
 
-	highscore.Status.Message = fmt.Sprintf("Player %s has taken the lead", newLeader)
+	if strings.Contains(newLeader, ",") {
+		highscore.Status.Message = fmt.Sprintf("Players %s are sharing the lead", newLeader)
+	} else {
+		highscore.Status.Message = fmt.Sprintf("Player %s has taken the lead", newLeader)
+	}
 
 	if err := r.Status().Update(ctx, &highscore); err != nil {
 		log.Error(err, "Failed to update Highscore status")
@@ -201,14 +177,28 @@ func containsName(highscore azuretnnovaiov1.Highscore, name string) bool {
 	}
 	return false
 }
-
 func setLeader(highscore azuretnnovaiov1.Highscore) string {
-	var leader string
-	var max int
-	for _, item := range highscore.Spec.Scoreboard {
-		if item.Points > max {
-			max = item.Points
-			leader = item.Name
+	slices.SortStableFunc(highscore.Spec.Scoreboard, func(i, j azuretnnovaiov1.Score) int {
+		if i.Points > j.Points {
+			return -1
+		}
+		if i.Points < j.Points {
+			return 1
+		}
+		return 0
+	})
+
+	if len(highscore.Spec.Scoreboard) == 0 {
+		return ""
+	}
+
+	leader := highscore.Spec.Scoreboard[0].Name
+
+	for i := 1; i < len(highscore.Spec.Scoreboard); i++ {
+		if highscore.Spec.Scoreboard[i-1].Points == highscore.Spec.Scoreboard[i].Points {
+			leader += ", " + highscore.Spec.Scoreboard[i].Name
+		} else {
+			break
 		}
 	}
 	return leader
