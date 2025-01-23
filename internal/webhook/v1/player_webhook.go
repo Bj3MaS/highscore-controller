@@ -109,18 +109,12 @@ func validatePlayer(player *azuretnnovaiov1.Player) error {
 	}
 
 	return apierrors.NewInvalid(
-		schema.GroupKind{Group: "batch.tutorial.kubebuilder.io", Kind: "CronJob"},
+		schema.GroupKind{Group: "azure.tnnova.io", Kind: "Player"},
 		player.Name, allErrs)
 }
 
 func validatePlayerName(player *azuretnnovaiov1.Player) *field.Error {
 	if len(player.ObjectMeta.Name) > validationutils.DNS1035LabelMaxLength-11 {
-		// The job name length is 63 characters like all Kubernetes objects
-		// (which must fit in a DNS subdomain). The cronjob controller appends
-		// a 11-character suffix to the cronjob (`-$TIMESTAMP`) when creating
-		// a job. The job name length limit is 63 characters. Therefore cronjob
-		// names must have length <= 63-11=52. If we don't validate this here,
-		// then job creation will fail later.
 		return field.Invalid(field.NewPath("metadata").Child("name"), player.ObjectMeta.Name, "must be no more than 52 characters")
 	}
 

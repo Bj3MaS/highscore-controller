@@ -228,10 +228,5 @@ func (r *HighscoreReconciler) finalizeplayer(player *azuretnnovaiov1.Player, hig
 	})
 
 	highscore.Spec.Scoreboard = append(highscore.Spec.Scoreboard[:index], highscore.Spec.Scoreboard[index+1:]...)
-	//
-	// delete any external resources associated with the cronJob
-	//
-	// Ensure that delete implementation is idempotent and safe to invoke
-	// multiple times for same object.
 	return nil
 }
