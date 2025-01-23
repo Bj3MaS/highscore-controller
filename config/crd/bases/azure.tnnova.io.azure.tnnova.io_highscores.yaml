@@ -1,0 +1,66 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.4
+  name: highscores.azure.tnnova.io.azure.tnnova.io
+spec:
+  group: azure.tnnova.io.azure.tnnova.io
+  names:
+    kind: Highscore
+    listKind: HighscoreList
+    plural: highscores
+    singular: highscore
+  scope: Cluster
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: Highscore is the Schema for the highscores API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: HighscoreSpec defines the desired state of Highscore.
+            properties:
+              leader:
+                type: string
+              scoreboard:
+                description: Foo is an example field of Highscore. Edit highscore_types.go
+                  to remove/update
+                items:
+                  properties:
+                    name:
+                      type: string
+                    points:
+                      type: integer
+                  type: object
+                type: array
+            type: object
+          status:
+            description: HighscoreStatus defines the observed state of Highscore.
+            properties:
+              message:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

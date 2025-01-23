@@ -1,0 +1,9 @@
+apiVersion: azure.tnnova.io.azure.tnnova.io/v1
+kind: Highscore
+metadata:
+  labels:
+    app.kubernetes.io/name: dx-olympics-highscore-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: highscore-sample
+spec:
+  # TODO(user): Add fields here

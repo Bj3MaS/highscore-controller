@@ -1,0 +1,27 @@
+# permissions for end users to edit players.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: dx-olympics-highscore-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: player-editor-role
+rules:
+- apiGroups:
+  - azure.tnnova.io.azure.tnnova.io
+  resources:
+  - players
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - azure.tnnova.io.azure.tnnova.io
+  resources:
+  - players/status
+  verbs:
+  - get

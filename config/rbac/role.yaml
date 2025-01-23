@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - azure.tnnova.io.azure.tnnova.io
+  resources:
+  - highscores
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - azure.tnnova.io.azure.tnnova.io
+  resources:
+  - highscores/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - azure.tnnova.io.azure.tnnova.io
+  resources:
+  - highscores/status
+  verbs:
+  - get
+  - patch
+  - update

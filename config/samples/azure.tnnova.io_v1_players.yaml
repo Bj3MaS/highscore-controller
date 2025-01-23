@@ -1,0 +1,37 @@
+apiVersion: azure.tnnova.io.azure.tnnova.io/v1
+kind: Player
+metadata:
+  labels:
+    app.kubernetes.io/name: dx-olympics-highscore-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: player-marcus
+spec:
+  name: Marcus Auberg
+  points: 100
+
+---
+
+apiVersion: azure.tnnova.io.azure.tnnova.io/v1
+kind: Player
+metadata:
+  labels:
+    app.kubernetes.io/name: dx-olympics-highscore-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: player-nikolai
+spec:
+  name: Nikolai Fauskrud
+  points: 100
+
+---
+
+apiVersion: azure.tnnova.io.azure.tnnova.io/v1
+kind: Player
+metadata:
+  labels:
+    app.kubernetes.io/name: dx-olympics-highscore-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: player-aksel
+spec:
+  name: aksel skaar
+  points: 100
+

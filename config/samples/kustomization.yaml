@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- azure.tnnova.io_v1_player.yaml
+- azure.tnnova.io_v1_highscore.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples
