@@ -41,6 +41,7 @@ type HighscoreReconciler struct {
 // +kubebuilder:rbac:groups=azure.tnnova.io.azure.tnnova.io,resources=highscores,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=azure.tnnova.io.azure.tnnova.io,resources=highscores/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=azure.tnnova.io.azure.tnnova.io,resources=highscores/finalizers,verbs=update
+// +kubebuilder:rbac:groups=azure.tnnova.io.azure.tnnova.io,resources=players,verbs=get;list;watch;create;update;patch;delete
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

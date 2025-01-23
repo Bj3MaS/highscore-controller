@@ -8,6 +8,7 @@ rules:
   - azure.tnnova.io.azure.tnnova.io
   resources:
   - highscores
+  - players
   verbs:
   - create
   - delete

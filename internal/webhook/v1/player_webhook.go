@@ -28,7 +28,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
-		"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 
 	azuretnnovaiov1 "tutorial.kubebuilder.io/project/api/v1"
 )
@@ -70,7 +70,7 @@ func (v *PlayerCustomValidator) ValidateCreate(ctx context.Context, obj runtime.
 	}
 	playerlog.Info("Validation for Player upon creation", "name", player.GetName())
 
-	return nil, nil
+	return nil, validatePlayer(player)
 }
 
 // ValidateUpdate implements webhook.CustomValidator so a webhook will be registered for the type Player.
@@ -83,7 +83,7 @@ func (v *PlayerCustomValidator) ValidateUpdate(ctx context.Context, oldObj, newO
 
 	// TODO(user): fill in your validation logic upon object update.
 
-	return nil, nil
+	return nil, validatePlayer(player)
 }
 
 // ValidateDelete implements webhook.CustomValidator so a webhook will be registered for the type Player.
@@ -101,7 +101,7 @@ func (v *PlayerCustomValidator) ValidateDelete(ctx context.Context, obj runtime.
 
 func validatePlayer(player *azuretnnovaiov1.Player) error {
 	var allErrs field.ErrorList
-	if err := validateCronJobName(player); err != nil {
+	if err := validatePlayerName(player); err != nil {
 		allErrs = append(allErrs, err)
 	}
 	if len(allErrs) == 0 {
@@ -113,7 +113,7 @@ func validatePlayer(player *azuretnnovaiov1.Player) error {
 		player.Name, allErrs)
 }
 
-func validateCronJobName(player *azuretnnovaiov1.Player) *field.Error {
+func validatePlayerName(player *azuretnnovaiov1.Player) *field.Error {
 	if len(player.ObjectMeta.Name) > validationutils.DNS1035LabelMaxLength-11 {
 		// The job name length is 63 characters like all Kubernetes objects
 		// (which must fit in a DNS subdomain). The cronjob controller appends

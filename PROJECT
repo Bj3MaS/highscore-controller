@@ -5,7 +5,7 @@
 domain: azure.tnnova.io
 layout:
 - go.kubebuilder.io/v4
-projectName: dx-olympics-highscore-controller
+projectName: highscore-controller
 repo: tutorial.kubebuilder.io/project
 resources:
 - api:
